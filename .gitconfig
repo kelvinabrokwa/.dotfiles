@@ -1,0 +1,6 @@
+[user]
+	name = kelvinabrokwa
+	email = kelvinabrokwa@gmail.com
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
