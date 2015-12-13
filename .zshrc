@@ -1,9 +1,3 @@
-source ~/.nvm/nvm.sh
-nvm use 0.10
-
-# Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.rvm/bin"
-rvm use ruby-2.2.0
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/kelvinabrokwa/.oh-my-zsh
@@ -12,11 +6,15 @@ export ZSH=/Users/kelvinabrokwa/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="bullet-train"
-#ZSH_THEME="agnoster"
+ZSH_THEME="agnoster"
+#ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -57,7 +55,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/usr/local/heroku/bin:/Library/Frameworks/Python.framework/Versions/3.4/bin:/Library/Frameworks/Python.framework/Versions/3.4/bin:/Users/kelvinabrokwa/.cabal/bin:/Applications/ghc-7.8.4.app/Contents/bin:/usr/local/heroku/bin:/Users/kelvinabrokwa/.rvm/gems/ruby-2.2.0/bin:/Users/kelvinabrokwa/.rvm/gems/ruby-2.2.0@global/bin:/Users/kelvinabrokwa/.rvm/rubies/ruby-2.2.0/bin:/Users/kelvinabrokwa/.nvm/v0.10.37/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/go/bin:/Users/kelvinabrokwa/.rvm/bin:/Users/kelvinabrokwa/.rvm/bin:/Users/kelvinabrokwa/.rvm/bin:/Users/kelvinabrokwa/.rvm/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -78,27 +76,20 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="vi ~/.zshrc"
+alias ohmyzsh="vi ~/.oh-my-zsh"
 
 source "$(npm root -g)/mapbox-cli/mapbox.sh"
 
-
-export PATH="$PATH:$HOME/.rvm/bin"
-
 function repo() {
-  if [ "$1" == "k" ]; then
+  if [ "$1" == "-k" ]; then
     open https://github.com/kelvinabrokwa/$2
   elif [ "$2" == "-i" ]; then
     open https://github.com/mapbox/$1/issues
-  else
+  elif [ ! -z "$1" ]; then
     open https://github.com/mapbox/$1
+  else
+    grep 'url' .git/config | sed 's/^.*://g' | awk '{print "https://github.com/"$1}' | xargs open
   fi
 }
 
@@ -123,8 +114,22 @@ alias issues="open https://github.com/issues/assigned"
 
 alias repos="cd ~/Documents/Git/ && ls"
 
+alias docs="cd ~/Documents/ && ls"
+
 alias desk="cd ~/Desktop/ && ls"
 
 alias dir="echo $PWD"
 
-alias fix="rvm use ruby-2.2.0"
+alias vi="mvim"
+
+alias gs="git status"
+
+alias pi="ssh pi@192.168.0.13" # ssh into raspberry pi
+
+export NVM_DIR="/Users/kelvinabrokwa/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+. ~/z.sh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+

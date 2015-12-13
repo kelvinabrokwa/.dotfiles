@@ -17,25 +17,31 @@ Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'Yggdroot/indentLine'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 syntax on
 
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
+" for js
+autocmd FileType javascript setlocal ts=2 sw=2
+autocmd FileType html setlocal ts=2 sw=2
 set expandtab
 set paste
 set number
 set ic
 set showcmd
-set cursorline
+"set cursorline
 set hlsearch
 set incsearch
 set noerrorbells
 set showmode
 set title
+set autoindent
+set cindent
 
 let mapleader='-'
 
@@ -80,6 +86,12 @@ nmap <leader>b :BuffergatorOpen<CR>
 nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>T :enew<CR>
 
+" close buffer
+nmap <leader>q :bdelete<CR>
+
 " for `gf` in js
 set suffixesadd+=.js
 
+" Indent line
+let g:indentLine_color_term = 239
+let g:indentLine_char = '│'
