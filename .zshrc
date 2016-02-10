@@ -6,7 +6,7 @@ export ZSH=/Users/kelvinabrokwa/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME="af-magic"
 #ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -82,15 +82,15 @@ alias ohmyzsh="vi ~/.oh-my-zsh"
 source "$(npm root -g)/mapbox-cli/mapbox.sh"
 
 function repo() {
-  if [ "$1" == "-k" ]; then
-    open https://github.com/kelvinabrokwa/$2
-  elif [ "$2" == "-i" ]; then
-    open https://github.com/mapbox/$1/issues
-  elif [ ! -z "$1" ]; then
-    open https://github.com/mapbox/$1
-  else
-    grep 'url' .git/config | sed 's/^.*://g' | awk '{print "https://github.com/"$1}' | xargs open
+  # climb up until you find the root repo
+  while [ ! -e ".git" ]; do
+    cd ..
+  done
+  url=$(grep 'url' .git/config | sed 's/^.*= //g')
+  if [[ $url != *"http"* ]]; then
+    url=$(echo $url | sed 's/^.*://' | awk '{print "https://github.com/"$1}')
   fi
+  open $url
 }
 
 function goog() {
@@ -120,11 +120,26 @@ alias desk="cd ~/Desktop/ && ls"
 
 alias dir="echo $PWD"
 
-alias vi="mvim"
+alias vi="nvim"
 
 alias gs="git status"
 
 alias pi="ssh pi@192.168.0.13" # ssh into raspberry pi
+
+alias email="open 'https://inbox.google.com/u/0/'"
+
+alias wme="open 'https://mail.google.com/mail/u/3/#inbox'"
+
+alias julia="exec '/Applications/Julia-0.4.3.app/Contents/Resources/julia/bin/julia'"
+
+# EC2 CLI
+export EC2_HOME=/usr/local/ec2/ec2-api-tools-1.7.5.1
+export PATH=$PATH:$EC2_HOME/bin
+source ~/.ec2.sh
+export JAVA_HOME=$(/usr/libexec/java_home)
+
+# mapbox
+source "$(npm root -g)/mbxcli/mapbox.sh"
 
 export NVM_DIR="/Users/kelvinabrokwa/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

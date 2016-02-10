@@ -18,6 +18,7 @@ Bundle 'mattn/gist-vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'Yggdroot/indentLine'
+Plugin 'JuliaLang/julia-vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -66,6 +67,9 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_html_checkers=['']
 let g:syntastic_javascript_checkers = ['eslint']
+
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 " Configure airline
 let g:airline#extensions#bufferline#enabled = 1
