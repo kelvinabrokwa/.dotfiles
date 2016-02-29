@@ -110,6 +110,20 @@ function st2() {
   fi
 }
 
+function lab() {
+  cd /tmp/lab
+  if [ -z $1 ]; then
+    kill -INT $$
+  fi
+  max=0
+  for n in $(ls); do
+    (($n > $max)) && max=$n
+  done
+  new=$(($max + 1))
+  mkdir $new
+  cd $new
+}
+
 alias issues="open https://github.com/issues/assigned"
 
 alias repos="cd ~/Documents/Git/ && ls"

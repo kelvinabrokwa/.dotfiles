@@ -31,7 +31,7 @@ set shiftwidth=4
 autocmd FileType javascript setlocal ts=2 sw=2
 autocmd FileType html setlocal ts=2 sw=2
 set expandtab
-set paste
+set nopaste
 set number
 set ic
 set showcmd
